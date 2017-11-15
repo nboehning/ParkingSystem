@@ -1,11 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System;
 using UnityEngine;
 
-public class ParkingSpotSensor : MonoBehaviour
+public class ParkingSpotSensor : Sensor
 {
 
 	public Light sensorLight;
+    public int level;
 
 	void OnTriggerEnter(Collider other)
 	{
@@ -13,18 +13,14 @@ public class ParkingSpotSensor : MonoBehaviour
 		{
 			Debug.Log("Car entered the parking spot");
 			sensorLight.color = Color.red;
-			//string plate = other.GetComponent<Car>().lisencePlate;
-			//Search customer DB for this license plate
-			// If it exists
-				// Do nothing
-			// Else
-				// Customer newCustomer = new Customer(Time.time, plate);
-				// Add newCustomer to customer DB (base.addCustomer(newCustomer))
-			
-		}
-		else if(other.tag != "Car")
-		{
-			Debug.Log("Something besides car entered");
+			string plate = other.GetComponent<Car>().licensePlate;
+            Customer customer = new Customer(plate);
+
+            if (!customers.Contains(customer))
+            {
+                customers.Add(customer);
+                ParkingGarage.Park(level);
+            }
 		}
 	}
 
@@ -34,10 +30,7 @@ public class ParkingSpotSensor : MonoBehaviour
 		{
 			Debug.Log("Car exited the parking spot");
 			sensorLight.color = Color.green;
-		}
-		else if(other.tag != "Car")
-		{
-			Debug.Log("Something besides car exited");
+            ParkingGarage.Exit(level);
 		}
 	}
 }

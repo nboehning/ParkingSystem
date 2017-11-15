@@ -4,13 +4,6 @@ using UnityEngine;
 
 public class Sensor : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    protected static List<Customer> customers = new List<Customer>();
+
 }

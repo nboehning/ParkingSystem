@@ -14,15 +14,12 @@ public class ParkingGarage : MonoBehaviour
     public static Level[] parkingLevels = new Level[3];
     public static int spotsPerLevel = 20;
     public static bool isFull;
-    public static Text[] levelSignalTexts;
-    public static Text garageSignalText;
 
     void Start()
     {
         for (int i = 0; i < parkingLevels.Length; i++)
         {
             parkingLevels[i].numberOfSpots = spotsPerLevel;
-            levelSignalTexts[i].text = spotsPerLevel.ToString();
         }
 
 
@@ -30,23 +27,23 @@ public class ParkingGarage : MonoBehaviour
 
     public static void Park(int level)
     {
-        parkingLevels[level].spotsFilled++;
+        parkingLevels[level - 1].spotsFilled++;
 
         CheckLevel(level);
     }
 
     public static void Exit(int level)
     {
-        parkingLevels[level].spotsFilled--;
+        parkingLevels[level - 1].spotsFilled--;
 
         CheckLevel(level);
     }
 
     private static void CheckLevel(int level)
     {
-        if (parkingLevels[level].spotsFilled == parkingLevels[level].numberOfSpots)
+        if (parkingLevels[level - 1].spotsFilled == parkingLevels[level - 1].numberOfSpots)
         {
-            parkingLevels[level].isFull = true;
+            parkingLevels[level - 1].isFull = true;
             ParkingGarage.isFull = true;
 
             for (int i = 0; i < parkingLevels.Length; i++)
@@ -60,7 +57,7 @@ public class ParkingGarage : MonoBehaviour
         }
         else
         {
-            parkingLevels[level].isFull = false;
+            parkingLevels[level - 1].isFull = false;
         }
 
         UpdateSignals(level);
@@ -68,7 +65,22 @@ public class ParkingGarage : MonoBehaviour
 
     private static void UpdateSignals(int level)
     {
-        levelSignalTexts[level].text = (parkingLevels[level].numberOfSpots - parkingLevels[level].spotsFilled).ToString();
+        Text textCompUI = null;
+
+        switch (level)
+        {
+            case 1:
+                textCompUI = GameObject.Find("LevelOneSpots").GetComponent<Text>(); 
+                break;
+            case 2:
+                textCompUI = GameObject.Find("LevelTwoSpots").GetComponent<Text>();
+                break;
+            case 3:
+                textCompUI = GameObject.Find("LevelThreeSpots").GetComponent<Text>();
+                break;
+        }
+        textCompUI.text = (parkingLevels[level - 1].numberOfSpots - parkingLevels[level - 1].spotsFilled).ToString();
+        Debug.Log(textCompUI.text);
     }
 
 }

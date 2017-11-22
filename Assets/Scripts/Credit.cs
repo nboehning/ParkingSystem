@@ -1,16 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using System;
 
-public class Credit : MonoBehaviour {
+public class Credit {
 
-	// Use this for initialization
-	void Start () {
-		
-	}
+    private string number;
+    private string type;
+    private DateTime expirationDate;
 	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 }

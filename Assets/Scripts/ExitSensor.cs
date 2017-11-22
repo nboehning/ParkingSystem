@@ -9,14 +9,16 @@ public class ExitSensor : Sensor
         if (other.tag == "Car")
         {
             string plate = GameObject.FindObjectOfType<Car>().licensePlate;
-            Customer customer = new Customer(plate);
+            Customer temp = new Customer(plate);
 
-            foreach (Customer cust in customers)
+            foreach (Customer customer in customers)
             {
-                if (cust.Equals(customer))
+                if (customer.Equals(temp))
                 {
-                    cust.TimeOut = DateTime.Now;
-                    customers.Remove(cust);
+                    customer.TimeOut = DateTime.Now;
+                    customers.Remove(customer);
+                    KioskController.CalculatePayment(customer);
+                    break;
                 }
             }
         }

@@ -21,8 +21,6 @@ public class ParkingGarage : MonoBehaviour
         {
             parkingLevels[i].numberOfSpots = spotsPerLevel;
         }
-
-
     }
 
     public static void Park(int level)
@@ -79,8 +77,18 @@ public class ParkingGarage : MonoBehaviour
                 textCompUI = GameObject.Find("LevelThreeSpots").GetComponent<Text>();
                 break;
         }
+
+        if (ParkingGarage.isFull)
+        {
+            GameObject.Find("GarageStatus").GetComponent<Text>().text = "Full";
+            GameObject.Find("GarageStatus").GetComponent<Text>().color = Color.red;
+        } else
+        {
+            GameObject.Find("GarageStatus").GetComponent<Text>().text = "Open";
+            GameObject.Find("GarageStatus").GetComponent<Text>().color = Color.green;
+        }
+
         textCompUI.text = (parkingLevels[level - 1].numberOfSpots - parkingLevels[level - 1].spotsFilled).ToString();
-        Debug.Log(textCompUI.text);
     }
 
 }

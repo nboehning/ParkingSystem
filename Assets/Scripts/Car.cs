@@ -6,12 +6,12 @@ public class Car : MonoBehaviour
 
     public string licensePlate;
 
-    private void Start()
+    void Start()
     {
-        GenerateLicensePlate();
+        licensePlate = GenerateLicensePlate();
     }
 
-    private void GenerateLicensePlate()
+    private string GenerateLicensePlate()
     {
         const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
         StringBuilder builder = new StringBuilder();
@@ -20,10 +20,10 @@ public class Car : MonoBehaviour
 
         for (int i = 0; i < plateLength; i++)
         {
-            char c = chars[(int) Random.Range(0, 36)];
+            char c = chars[(int) Random.Range(0, chars.Length)];
             builder.Append(c);
         }
 
-        licensePlate = builder.ToString();
+        return builder.ToString();
     }
 }

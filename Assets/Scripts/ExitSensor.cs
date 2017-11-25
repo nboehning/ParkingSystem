@@ -1,34 +1,24 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class ExitSensor : Sensor {
-
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+public class ExitSensor : Sensor
+{
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Car")
         {
-            Debug.Log("Car entered the parking spot");
-            string plate = other.GetComponent<Car>().licensePlate;
-            Customer customer = new Customer(plate);
+            string plate = GameObject.FindObjectOfType<Car>().licensePlate;
+            Customer temp = new Customer(plate);
 
-            foreach (Customer cust in customers)
+            foreach (Customer customer in customers)
             {
-                if (cust.Equals(customer))
+                if (customer.Equals(temp))
                 {
-                    cust.TimeOut = DateTime.Now;
-                    customers.Remove(cust);
+                    customer.TimeOut = DateTime.Now;
+                    customers.Remove(customer);
+                    KioskController.CalculatePayment(customer);
+                    break;
                 }
             }
         }

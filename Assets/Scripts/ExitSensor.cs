@@ -8,7 +8,7 @@ public class ExitSensor : Sensor
     {
         if (other.tag == "Car")
         {
-            string plate = GameObject.FindObjectOfType<Car>().licensePlate;
+            string plate = other.GetComponentInParent<Car>().licensePlate;
             Customer temp = new Customer(plate);
 
             foreach (Customer customer in customers)

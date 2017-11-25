@@ -1,6 +1,6 @@
 ﻿using System;
 
-public class Credit {
+public class Credit : Payment{
 
     private string number;
     private string type;

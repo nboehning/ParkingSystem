@@ -14,7 +14,7 @@ public class ParkingSpotSensor : Sensor
         {
             isTriggered = true;
             sensorLight.color = Color.red;
-            string plate = GameObject.FindObjectOfType<Car>().licensePlate;
+            string plate = other.GetComponentInParent<Car>().licensePlate;
             Customer customer = new Customer(plate);
 
             if (!customers.Contains(customer))

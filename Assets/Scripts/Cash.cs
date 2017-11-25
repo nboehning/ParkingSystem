@@ -1,4 +1,4 @@
-﻿public class Cash {
+﻿public class Cash : Payment {
 
     private double cashTendered;
 

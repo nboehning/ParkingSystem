@@ -56,6 +56,7 @@ public class ParkingGarage : MonoBehaviour
         else
         {
             parkingLevels[level - 1].isFull = false;
+            ParkingGarage.isFull = false;
         }
 
         UpdateSignals(level);
